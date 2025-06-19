@@ -120,8 +120,10 @@
       heart.remove();
     }, i * 150 + 2000);
   }
-const heartBeat = document.getElementById("heartBeat");
-const heartLine = heartBeat.parentElement;
+const heartLine = document.querySelector(".heart-line");
+const heartBeat = document.querySelector(".heart-beat");
+const floatingHeartsContainer = document.createElement("div");
+floatingHeartsContainer.classList.add("floating-hearts-container");
 const floatingHeartsContainer = document.createElement("div");
 floatingHeartsContainer.style.position = "fixed";
 floatingHeartsContainer.style.top = 0;
