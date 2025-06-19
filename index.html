@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Anh Yêu Em</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=Poppins&family=Comic+Neue&display=swap" rel="stylesheet" />
+
+  <style>
+   
+  </style>
+</head>
+<body>
+  <video id="background-video" autoplay muted loop playsinline>
+    <source src="video.mp4" type="video/mp4">
+  </video>
+
+  <div class="blur-overlay" id="blurOverlay"></div>
+<div class="center-container">
+  <h1 class="main-text" id="mainText">
+    Anh Yêu Em
+    <span class="heart-fly" style="top: -10px; left: -30px;">❤️</span>
+    <span class="heart-fly" style="top: 10px; left: 140px; animation-delay: 2s;">❤️</span>
+    <span class="heart-fly" style="top: 40px; left: 60px; animation-delay: 1s;">❤️</span>
+  </h1>
+</div>
+  <div class="board-container">
+    <div class="couple-table">
+      <div class="person">
+        <img src="Leon.jpg" class="avatar">
+        <div class="name">Neo</div>
+        <div class="facebook-profile">
+          <img src="https://scontent.fsgn17-1.fna.fbcdn.net/v/t39.30808-6/499487112_686326250696850_3978778873770967723_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=CgxmCAQ_V1kQ7kNvwGycE2d&_nc_oc=Adn13B01BFQmkIOIQhtRw1WEhe3SoZ1A4yAcRlYqAGutMk99Rk4YOcK3Gp5P-5wKpZVMF-Ic7y7olGGCGcnVA-Z8&_nc_zt=23&_nc_ht=scontent.fsgn17-1.fna&_nc_gid=gifdGznJo8D9YFtiI48Xgw&oh=00_AfMTkY8HLZ-sqLQRGVLZ1uJS-SROdSV6yqYYnvwZC80w9A&oe=68594983" alt="Neo">
+          <a href="https://www.facebook.com/ma.ngu.ngay1/?locale=vi_VN" target="_blank">facebook.com/neo</a>
+        </div>
+      </div>
+     <div class="heart-line">
+  <img src="heart.png" class="heart-beat" id="heartBeat">
+  <div class="promise-text-heart">Anh sẽ luôn bên em, yêu em trọn đời 💖</div>
+</div>
+      <div class="person">
+        <img src="Reo.jpg" class="avatar">
+        <div class="name">Reo</div>
+        <div class="facebook-profile">
+          <img src="https://scontent.fsgn17-1.fna.fbcdn.net/v/t39.30808-6/488677893_122106651818821905_8595088745147818300_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=8Ds7h_AAv58Q7kNvwGNoSgT&_nc_oc=AdkfuinfvrXhWXwauehvr0bhINdL_54BZWlITY-LtPTlfgrpKTQL3LhQzMNqEkbpspUkhtQm9-DlQwTuXnOKdNJo&_nc_zt=23&_nc_ht=scontent.fsgn17-1.fna&_nc_gid=GWXWj9SEsPzWYMIL-rjwvA&oh=00_AfNvjxevry3QVtQvj00A3V7lJzv5OafZPQ7qUwrCQcPhjw&oe=68594FEB" alt="Reo">
+          <a href="https://www.facebook.com/nguyen.linh.104878?locale=vi_VN" target="_blank">facebook.com/reo</a>
+        </div>
+      </div>
+    </div>
+
+     <div class="status-board" id="statusBoard"></div>
+
+    <div class="roblox-board" id="robloxBoard"></div>
+
+    <div class="love-board">
+      <div class="love-title">❤️ Đã yêu nhau</div>
+      <div class="love-time" id="loveTime">0 năm 0 tháng 0 ngày 0 giờ 0 phút 0 giây</div>
+    </div>
+  </div>
+
+ <script>
+    const video = document.getElementById("background-video");
+    const blur = document.getElementById("blurOverlay");
+    const text = document.getElementById("mainText");
+
+    let clicked = false;
+    let loveStart = new Date("2024-03-18T01:01:01");
+
+    text.addEventListener("click", () => {
+  if (clicked) return;
+  clicked = true;
+
+  video.muted = false;
+  video.play();
+
+  blur.style.opacity = 0;
+
+  const rect = text.getBoundingClientRect();
+  const content = text.innerText;
+
+  // Ẩn chữ gốc luôn
+  text.style.opacity = 0;
+
+  // Tạo trái tim cho mỗi ký tự
+  for (let i = 0; i < content.length; i++) {
+    const char = content[i];
+    if (char.trim() === "") continue; // bỏ khoảng trắng
+
+    // Tạo span trái tim thay cho ký tự
+    const heart = document.createElement("span");
+    heart.className = "heart-particle";
+    heart.textContent = "❤️";
+
+    // Vị trí xuất phát là vị trí ký tự trên màn hình
+    // Tính toán vị trí trái tim từ vị trí text + offset
+    const charWidth = rect.width / content.length;
+    const startX = rect.left + i * charWidth + charWidth / 2;
+    const startY = rect.top + rect.height / 2;
+
+    heart.style.left = `${startX}px`;
+    heart.style.top = `${startY}px`;
+
+    document.body.appendChild(heart);
+
+    // Random vị trí bay lên và xoay
+    const translateX = (Math.random() - 0.5) * 100; // -50 đến 50 px
+    const translateY = -150 - Math.random() * 100; // bay lên khoảng 150-250px
+    const rotate = (Math.random() - 0.5) * 720; // xoay -360 đến 360 độ
+
+    // Delay mỗi trái tim cách nhau để bay lần lượt
+    setTimeout(() => {
+      heart.style.transition = "transform 2s ease, opacity 2s ease";
+      heart.style.transform = `translate(${translateX}px, ${translateY}px) rotate(${rotate}deg) scale(1.5)`;
+      heart.style.opacity = "0";
+    }, i * 150);
+
+    // Xóa trái tim khỏi DOM sau animation
+    setTimeout(() => {
+      heart.remove();
+    }, i * 150 + 2000);
+  }
+const heartBeat = document.getElementById("heartBeat");
+const heartLine = heartBeat.parentElement;
+const floatingHeartsContainer = document.createElement("div");
+floatingHeartsContainer.style.position = "fixed";
+floatingHeartsContainer.style.top = 0;
+floatingHeartsContainer.style.left = 0;
+floatingHeartsContainer.style.width = "100%";
+floatingHeartsContainer.style.height = "100%";
+floatingHeartsContainer.style.pointerEvents = "none";
+floatingHeartsContainer.style.zIndex = 1000;
+document.body.appendChild(floatingHeartsContainer);
+
+let floatingHeartsInterval;
+
+function createFloatingHeart(x, y) {
+  const heart = document.createElement("div");
+  heart.classList.add("floating-heart");
+  heart.textContent = "❤️";
+
+  heart.style.left = `${x}px`;
+  heart.style.top = `${y}px`;
+
+  const tx = (Math.random() - 0.5) * 100; // ngang -50px đến 50px
+  const ty = - (50 + Math.random() * 100); // lên trên -50px đến -150px
+
+  heart.style.setProperty("--tx", `${tx}px`);
+  heart.style.setProperty("--ty", `${ty}px`);
+
+  floatingHeartsContainer.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 2000);
+}
+
+heartLine.addEventListener("mouseenter", () => {
+  // Lấy vị trí giữa trái tim
+  const rect = heartBeat.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+
+  floatingHeartsInterval = setInterval(() => {
+    createFloatingHeart(centerX, centerY);
+  }, 300);
+});
+
+heartLine.addEventListener("mouseleave", () => {
+  clearInterval(floatingHeartsInterval);
+});
+  // Ẩn luôn text gốc sau 1.5s
+  setTimeout(() => {
+    text.style.display = "none";
+  }, content.length * 150 + 2000);
+});
+
+    function startTimer() {
+      function updateLoveTime() {
+        const now = new Date();
+        let totalSeconds = Math.floor((now - loveStart) / 1000);
+
+        const years = 0;
+        const months = Math.floor(totalSeconds / (30 * 24 * 3600));
+        totalSeconds %= (30 * 24 * 3600);
+        const days = Math.floor(totalSeconds / (24 * 3600));
+        totalSeconds %= 24 * 3600;
+        const hours = Math.floor(totalSeconds / 3600);
+        totalSeconds %= 3600;
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+
+        const adjustedMonths = months % 12;
+
+        document.getElementById("loveTime").textContent =
+          `${years} năm ${adjustedMonths} tháng ${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây`;
+      }
+
+      updateLoveTime();
+      setInterval(updateLoveTime, 1000);
+    }
+
+    startTimer();
+
+    async function loadStatus() {
+      try {
+        const res = await fetch("http://localhost:3000/status");
+        const data = await res.json();
+
+        const container = document.getElementById("statusBoard");
+        container.innerHTML = "";
+
+        data.forEach(user => {
+          const div = document.createElement("div");
+          div.className = "user-status";
+          div.innerHTML = `
+            <img src="${user.avatar}" alt="${user.name}" style="width:50px;height:50px;border-radius:50%">
+            <div class="name">${user.name}</div>
+            <div class="state">${user.status}</div>
+            <div class="activity">${user.activity || "Không hoạt động"}</div>
+          `;
+          container.appendChild(div);
+        });
+      } catch (err) {
+        console.error("Không thể tải trạng thái Discord:", err);
+      }
+    }
+
+    loadStatus()
+
+  const robloxUsers = [
+    { id: 8295355900, name: "Neo" },
+    { id: 3151538454, name: "Reo" }
+  ];
+
+  async function loadRobloxStatus() {
+    const board = document.getElementById("robloxBoard");
+    board.innerHTML = "";
+
+    for (const user of robloxUsers) {
+      try {
+        const res = await fetch(`http://localhost:3000/roblox-info/${user.id}`);
+        const data = await res.json();
+
+        const div = document.createElement("div");
+        div.className = "roblox-status";
+        div.innerHTML = `
+          <img src="${data.avatarUrl || "default-avatar.png"}" class="avatar" style="width:100px; height:100px; border-radius:50%;">
+          <div class="name">${user.name} (Roblox)</div>
+          <div class="state">${data.status}</div>
+        `;
+        board.appendChild(div);
+      } catch (error) {
+        console.error("Lỗi khi lấy Roblox info:", error);
+      }
+    }
+  }
+
+  loadRobloxStatus();
+  setInterval(loadRobloxStatus, 10000);
+
+heartLine.addEventListener("mouseenter", () => {
+  const rect = heartBeat.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+
+  floatingHeartsInterval = setInterval(() => {
+    createFloatingHeart(centerX, centerY);
+  }, 300);
+});
+
+function add3DRotationEffect(element) {
+  element.addEventListener('mousemove', e => {
+    const rect = element.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const offsetX = (x - centerX) / centerX;
+    const offsetY = (y - centerY) / centerY;
+
+    const rotateX = offsetY * 15;
+    const rotateY = -offsetX * 15;
+
+    element.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
+
+  heartLine.addEventListener("mouseleave", () => {
+  clearInterval(floatingHeartsInterval);
+});
+}
+
+const tables = [
+  document.querySelector('.couple-table'),
+  document.querySelector('.status-board'),
+  document.querySelector('.roblox-board'),
+  document.querySelector('.love-board')
+];
+
+tables.forEach(el => {
+  if (el) add3DRotationEffect(el);
+});
+function createFloatingHeart(x, y) {
+  const heart = document.createElement("div");
+  heart.classList.add("floating-heart");
+  heart.textContent = "❤️";
+
+  heart.style.left = `${x}px`;
+  heart.style.top = `${y}px`;
+
+  // Dịch chuyển theo X và Y theo range rộng hơn để bay ra toàn màn hình
+  const tx = (Math.random() - 0.5) * window.innerWidth * 0.8; // -40% đến +40% chiều rộng màn hình
+  const ty = - (50 + Math.random() * window.innerHeight * 0.7); // bay lên trên 50px đến ~70% chiều cao màn hình
+
+  heart.style.setProperty("--tx", `${tx}px`);
+  heart.style.setProperty("--ty", `${ty}px`);
+
+  floatingHeartsContainer.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 2000);
+}
+
+  </script>
+</body>
+</html>
