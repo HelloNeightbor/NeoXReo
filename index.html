@@ -207,62 +207,64 @@ heartLine.addEventListener("mouseleave", () => {
 
     startTimer();
 
-    async function loadStatus() {
-      try {
-        const res = await fetch("http://localhost:3000/status");
-        const data = await res.json();
+  const API_BASE = "https://neoxreo.onrender.com";
 
-        const container = document.getElementById("statusBoard");
-        container.innerHTML = "";
+async function loadStatus() {
+  try {
+    const res = await fetch(`${API_BASE}/status`);
+    const data = await res.json();
 
-        data.forEach(user => {
-          const div = document.createElement("div");
-          div.className = "user-status";
-          div.innerHTML = `
-            <img src="${user.avatar}" alt="${user.name}" style="width:50px;height:50px;border-radius:50%">
-            <div class="name">${user.name}</div>
-            <div class="state">${user.status}</div>
-            <div class="activity">${user.activity || "Không hoạt động"}</div>
-          `;
-          container.appendChild(div);
-        });
-      } catch (err) {
-        console.error("Không thể tải trạng thái Discord:", err);
-      }
-    }
+    const container = document.getElementById("statusBoard");
+    container.innerHTML = "";
 
-    loadStatus()
+    data.forEach(user => {
+      const div = document.createElement("div");
+      div.className = "user-status";
+      div.innerHTML = `
+        <img src="${user.avatar}" alt="${user.name}" style="width:50px;height:50px;border-radius:50%">
+        <div class="name">${user.name}</div>
+        <div class="state">${user.status}</div>
+        <div class="activity">${user.activity || "Không hoạt động"}</div>
+      `;
+      container.appendChild(div);
+    });
+  } catch (err) {
+    console.error("Không thể tải trạng thái Discord:", err);
+  }
+}
 
-  const robloxUsers = [
-    { id: 8295355900, name: "Neo" },
-    { id: 3151538454, name: "Reo" }
-  ];
+loadStatus();
 
-  async function loadRobloxStatus() {
-    const board = document.getElementById("robloxBoard");
-    board.innerHTML = "";
+const robloxUsers = [
+  { id: 8295355900, name: "Neo" },
+  { id: 3151538454, name: "Reo" }
+];
 
-    for (const user of robloxUsers) {
-      try {
-        const res = await fetch(`http://localhost:3000/roblox-info/${user.id}`);
-        const data = await res.json();
+async function loadRobloxStatus() {
+  const board = document.getElementById("robloxBoard");
+  board.innerHTML = "";
 
-        const div = document.createElement("div");
-        div.className = "roblox-status";
-        div.innerHTML = `
-          <img src="${data.avatarUrl || "default-avatar.png"}" class="avatar" style="width:100px; height:100px; border-radius:50%;">
-          <div class="name">${user.name} (Roblox)</div>
-          <div class="state">${data.status}</div>
-        `;
-        board.appendChild(div);
-      } catch (error) {
-        console.error("Lỗi khi lấy Roblox info:", error);
-      }
+  for (const user of robloxUsers) {
+    try {
+      const res = await fetch(`${API_BASE}/roblox-info/${user.id}`);
+      const data = await res.json();
+
+      const div = document.createElement("div");
+      div.className = "roblox-status";
+      div.innerHTML = `
+        <img src="${data.avatarUrl || "default-avatar.png"}" class="avatar" style="width:100px; height:100px; border-radius:50%;">
+        <div class="name">${user.name} (Roblox)</div>
+        <div class="state">${data.status}</div>
+      `;
+      board.appendChild(div);
+    } catch (error) {
+      console.error("Lỗi khi lấy Roblox info:", error);
     }
   }
+}
 
-  loadRobloxStatus();
-  setInterval(loadRobloxStatus, 10000);
+loadRobloxStatus();
+setInterval(loadRobloxStatus, 10000);
 
 heartLine.addEventListener("mouseenter", () => {
   const rect = heartBeat.getBoundingClientRect();
