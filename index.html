@@ -122,22 +122,21 @@
   }
 const heartLine = document.querySelector(".heart-line");
 const heartBeat = document.querySelector(".heart-beat");
-const floatingHeartsContainer = document.createElement("div");
-floatingHeartsContainer.classList.add("floating-hearts-container");
-floatingHeartsContainer.style.position = "fixed";
-floatingHeartsContainer.style.top = 0;
-floatingHeartsContainer.style.left = 0;
-floatingHeartsContainer.style.width = "100%";
-floatingHeartsContainer.style.height = "100%";
-floatingHeartsContainer.style.pointerEvents = "none";
-floatingHeartsContainer.style.zIndex = 1000;
-document.body.appendChild(floatingHeartsContainer);
+
 let floatingHeartsContainer = document.querySelector(".floating-hearts");
 if (!floatingHeartsContainer) {
   floatingHeartsContainer = document.createElement("div");
   floatingHeartsContainer.className = "floating-hearts";
+  floatingHeartsContainer.style.position = "fixed";
+  floatingHeartsContainer.style.top = 0;
+  floatingHeartsContainer.style.left = 0;
+  floatingHeartsContainer.style.width = "100%";
+  floatingHeartsContainer.style.height = "100%";
+  floatingHeartsContainer.style.pointerEvents = "none";
+  floatingHeartsContainer.style.zIndex = 1000;
   document.body.appendChild(floatingHeartsContainer);
 }
+
 let floatingHeartsInterval;
 
 function createFloatingHeart(x, y) {
