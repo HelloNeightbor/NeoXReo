@@ -320,4 +320,24 @@ body {
     .facebook-profile a:hover {
       text-decoration: underline;
     }
+.love-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: pink;
+  color: white;
+  font-family: 'Dancing Script', cursive;
+  font-size: 24px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 9999;
+  transition: background 0.3s;
+}
+
+.love-button:hover {
+  background: hotpink;
+}
 
