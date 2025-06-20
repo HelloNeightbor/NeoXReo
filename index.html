@@ -333,7 +333,28 @@ function createFloatingHeart(x, y) {
     heart.remove();
   }, 2000);
 }
+const loveButton = document.getElementById("loveButton");
+const video = document.getElementById("background-video");
 
+// Danh sách 5 video (có thể dùng video.mp4 cục bộ hoặc link MP4 online)
+const loveVideos = [
+  "video.mp4",
+  "video2.mp4",
+  "video3.mp4",
+  "video4.mp4",
+  "video5.mp4"
+];
+
+let currentVideoIndex = 0;
+
+loveButton.addEventListener("click", () => {
+  currentVideoIndex = (currentVideoIndex + 1) % loveVideos.length;
+
+  video.src = loveVideos[currentVideoIndex];
+  video.load();
+  video.play();
+  video.muted = false;
+});
   </script>
 </body>
 </html>
