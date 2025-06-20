@@ -332,7 +332,7 @@ body {
   border-radius: 12px;
   cursor: pointer;
   box-shadow: 0 0 10px rgba(255, 0, 128, 0.4);
-  z-index: 1001;
+  z-index: 0;
 }
 .couple-table {
   position: relative; /* để nút có thể căn vị trí tuyệt đối bên trong */
