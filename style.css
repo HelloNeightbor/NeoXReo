@@ -321,23 +321,23 @@ body {
       text-decoration: underline;
     }
 .love-button {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #ff6699;
-      color: white;
-      font-family: 'Dancing Script', cursive;
-      font-size: 24px;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      cursor: pointer;
-      z-index: 0;
-      transition: opacity 1s ease;
-      opacity: 0;
-      pointer-events: none;
-    }
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 10px 20px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 20px;
+  background-color: pink;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(255, 0, 128, 0.4);
+  z-index: 1001;
+}
+.couple-table {
+  position: relative; /* để nút có thể căn vị trí tuyệt đối bên trong */
+}
+
 
     .love-button.show {
       opacity: 1;
